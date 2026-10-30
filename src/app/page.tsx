@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import InteractiveBadge from "@/src/components/InteractiveBadge"
 
 export default function Home() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -50,6 +51,9 @@ export default function Home() {
   return (
     <main className="bg-dark">
       <div className="grid lg:grid-cols-[35%_65%]">
+        {/* <div className="">
+          <InteractiveBadge />
+        </div> */}
         <div className="md:py-12 lg:py-0 min-h-screen w-full flex flex-col gap-2 lg:gap-0 items-center justify-center bg-[radial-gradient(circle_at_center,_var(--light)_0%,_var(--dark)_50%)]">
           <span className="text-[20px] lg:text-[20px] xl:text-[24px] leading-tight">Hello, I am</span>
           <span className="text-[28px] md:text-[36px] xl:text-[48px] leading-tight font-bold">Ibnu Zaidan Akbar</span>
