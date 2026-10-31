@@ -51,10 +51,10 @@ export default function Home() {
   return (
     <main className="bg-dark">
       <div className="grid lg:grid-cols-[35%_65%]">
-        {/* <div className="">
+        <div className="">
           <InteractiveBadge />
-        </div> */}
-        <div className="md:py-12 lg:py-0 min-h-screen w-full flex flex-col gap-2 lg:gap-0 items-center justify-center bg-[radial-gradient(circle_at_center,_var(--light)_0%,_var(--dark)_50%)]">
+        </div>
+        {/* <div className="md:py-12 lg:py-0 min-h-screen w-full flex flex-col gap-2 lg:gap-0 items-center justify-center bg-[radial-gradient(circle_at_center,_var(--light)_0%,_var(--dark)_50%)]">
           <span className="text-[20px] lg:text-[20px] xl:text-[24px] leading-tight">Hello, I am</span>
           <span className="text-[28px] md:text-[36px] xl:text-[48px] leading-tight font-bold">Ibnu Zaidan Akbar</span>
           <Image
@@ -62,7 +62,7 @@ export default function Home() {
             width={1290} height={540} priority
             className="h-[70dvh] w-[211px] h-[325px] md:w-[533px] md:h-[428px] lg:w-[844px] lg:h-[420px] xl:w-[1290px] xl:h-[540px] w-auto object-contain"
             />
-        </div>
+        </div> */}
 
         <div className="p-8 md:p-12 lg:p-0 min-h-screen w-full flex flex-col gap-4 justify-center lg:pr-12 xl:pr-20 bg-[radial-gradient(circle_at_right,_var(--light)_0%,_var(--dark)_35%)]">
           <div className="flex flex-col">

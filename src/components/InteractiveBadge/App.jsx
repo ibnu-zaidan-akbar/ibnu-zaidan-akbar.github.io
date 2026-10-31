@@ -10,23 +10,21 @@ import { useControls } from 'leva'
 extend({ MeshLineGeometry, MeshLineMaterial })
 useGLTF.preload('https://assets.vercel.com/image/upload/contentful/image/e5382hct74si/5huRVDzcoDwnbgrKUo1Lzs/53b6dd7d6b4ffcdbd338fa60265949e1/tag.glb')
 useTexture.preload('https://assets.vercel.com/image/upload/contentful/image/e5382hct74si/SOT1hmCesOHxEYxL7vkoZ/c57b29c85912047c414311723320c16b/band.jpg')
+useTexture.preload('/card-badge.svg')
 export default function App() {
-  // const { debug } = useControls({ debug: false })
   return (
-    <Canvas camera={{ position: [0, 0, 13], fov: 25 }}>
+    <Canvas camera={{ position: [0, 0, 11], fov: 25 }}>
       <ambientLight intensity={Math.PI} />
       <Suspense fallback={null}>
-        {/* <Physics debug={debug} interpolate gravity={[0, -40, 0]} timeStep={1 / 60}> */}
         <Physics interpolate gravity={[0, -40, 0]} timeStep={1 / 60}>
           <Band />
         </Physics>
-        {/* <Environment background blur={0.75}>
+        <Environment>
           <color attach="background" args={['black']} />
           <Lightformer intensity={2} color="white" position={[0, -1, 5]} rotation={[0, 0, Math.PI / 3]} scale={[100, 0.1, 1]} />
           <Lightformer intensity={3} color="white" position={[-1, -1, 1]} rotation={[0, 0, Math.PI / 3]} scale={[100, 0.1, 1]} />
           <Lightformer intensity={3} color="white" position={[1, 1, 1]} rotation={[0, 0, Math.PI / 3]} scale={[100, 0.1, 1]} />
-          <Lightformer intensity={10} color="white" position={[-10, 0, 14]} rotation={[0, Math.PI / 2, Math.PI / 3]} scale={[100, 10, 1]} />
-        </Environment> */}
+        </Environment>
       </Suspense>
     </Canvas>
   )
@@ -37,13 +35,15 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
   const segmentProps = { type: 'dynamic', canSleep: true, colliders: false, angularDamping: 2, linearDamping: 2 }
   const { nodes, materials } = useGLTF('https://assets.vercel.com/image/upload/contentful/image/e5382hct74si/5huRVDzcoDwnbgrKUo1Lzs/53b6dd7d6b4ffcdbd338fa60265949e1/tag.glb')
   const texture = useTexture('https://assets.vercel.com/image/upload/contentful/image/e5382hct74si/SOT1hmCesOHxEYxL7vkoZ/c57b29c85912047c414311723320c16b/band.jpg')
+  const customCardTexture = useTexture('/card-badge.svg')
+  customCardTexture.flipY = false
   const { width, height } = useThree((state) => state.size)
   const [curve] = useState(() => new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()]))
   const [dragged, drag] = useState(false)
   const [hovered, hover] = useState(false)
-  useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], 1])
-  useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 1])
-  useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], 1])
+  useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], 1.3])
+  useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 0.9])
+  useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], 0.9])
   useSphericalJoint(j3, card, [[0, 0, 0], [0, 1.45, 0]])
   useEffect(() => {
     if (hovered) {
@@ -79,7 +79,7 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
   texture.wrapS = texture.wrapT = THREE.RepeatWrapping
   return (
     <>
-      <group position={[0, 4, 0]}>
+      <group position={[0, 3.68, 0]}>
         <RigidBody ref={fixed} {...segmentProps} type="fixed" />
         <RigidBody position={[0.5, 0, 0]} ref={j1} {...segmentProps}>
           <BallCollider args={[0.1]} />
@@ -100,7 +100,7 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
             onPointerUp={(e) => (e.target.releasePointerCapture(e.pointerId), drag(false))}
             onPointerDown={(e) => (e.target.setPointerCapture(e.pointerId), drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation()))))}>
             <mesh geometry={nodes.card.geometry}>
-              <meshPhysicalMaterial map={materials.base.map} map-anisotropy={16} clearcoat={1} clearcoatRoughness={0.15} roughness={0.3} metalness={0.5} />
+              <meshPhysicalMaterial map={customCardTexture} map-anisotropy={16} clearcoat={1} clearcoatRoughness={0.15} roughness={0.3} metalness={0.5} />
             </mesh>
             <mesh geometry={nodes.clip.geometry} material={materials.metal} material-roughness={0.3} />
             <mesh geometry={nodes.clamp.geometry} material={materials.metal} />
