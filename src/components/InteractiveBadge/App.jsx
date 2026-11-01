@@ -6,11 +6,10 @@ import { Canvas, extend, useThree, useFrame } from '@react-three/fiber'
 import { useGLTF, useTexture, Environment, Lightformer } from '@react-three/drei'
 import { BallCollider, CuboidCollider, Physics, RigidBody, useRopeJoint, useSphericalJoint } from '@react-three/rapier'
 import { MeshLineGeometry, MeshLineMaterial } from 'meshline'
-import { useControls } from 'leva'
 extend({ MeshLineGeometry, MeshLineMaterial })
 useGLTF.preload('https://assets.vercel.com/image/upload/contentful/image/e5382hct74si/5huRVDzcoDwnbgrKUo1Lzs/53b6dd7d6b4ffcdbd338fa60265949e1/tag.glb')
-useTexture.preload('https://assets.vercel.com/image/upload/contentful/image/e5382hct74si/SOT1hmCesOHxEYxL7vkoZ/c57b29c85912047c414311723320c16b/band.jpg')
 useTexture.preload('/card-badge.svg')
+useTexture.preload('/rope.svg')
 export default function App() {
   return (
     <Canvas camera={{ position: [0, 0, 11], fov: 25 }}>
@@ -31,19 +30,19 @@ export default function App() {
 }
 function Band({ maxSpeed = 50, minSpeed = 10 }) {
   const band = useRef(), fixed = useRef(), j1 = useRef(), j2 = useRef(), j3 = useRef(), card = useRef()
-  const vec = new THREE.Vector3(), ang = new THREE.Vector3(), rot = new THREE.Vector3(), dir = new THREE.Vector3()
+  const vec = new THREE.Vector3(), ang = new THREE.Vector3(), rot = new THREE.Vector3()
   const segmentProps = { type: 'dynamic', canSleep: true, colliders: false, angularDamping: 2, linearDamping: 2 }
-  const { nodes, materials } = useGLTF('https://assets.vercel.com/image/upload/contentful/image/e5382hct74si/5huRVDzcoDwnbgrKUo1Lzs/53b6dd7d6b4ffcdbd338fa60265949e1/tag.glb')
-  const texture = useTexture('https://assets.vercel.com/image/upload/contentful/image/e5382hct74si/SOT1hmCesOHxEYxL7vkoZ/c57b29c85912047c414311723320c16b/band.jpg')
+  const { nodes } = useGLTF('https://assets.vercel.com/image/upload/contentful/image/e5382hct74si/5huRVDzcoDwnbgrKUo1Lzs/53b6dd7d6b4ffcdbd338fa60265949e1/tag.glb')
   const customCardTexture = useTexture('/card-badge.svg')
+  const customRopeTexture = useTexture('/rope.svg')
   customCardTexture.flipY = false
   const { width, height } = useThree((state) => state.size)
   const [curve] = useState(() => new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()]))
   const [dragged, drag] = useState(false)
   const [hovered, hover] = useState(false)
-  useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], 1.3])
-  useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 0.9])
-  useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], 0.9])
+  useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], 0.5])
+  useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 1.3])
+  useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], 1.3])
   useSphericalJoint(j3, card, [[0, 0, 0], [0, 1.45, 0]])
   useEffect(() => {
     if (hovered) {
@@ -54,8 +53,8 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
   useFrame((state, delta) => {
     if (dragged) {
       vec.set(state.pointer.x, state.pointer.y, 0.5).unproject(state.camera)
-      dir.copy(vec).sub(state.camera.position).normalize()
-      vec.add(dir.multiplyScalar(state.camera.position.length()))
+      rot.copy(vec).sub(state.camera.position).normalize()
+      vec.add(rot.multiplyScalar(state.camera.position.length()))
       ;[card, j1, j2, j3, fixed].forEach((ref) => ref.current?.wakeUp())
       card.current?.setNextKinematicTranslation({ x: vec.x - dragged.x, y: vec.y - dragged.y, z: vec.z - dragged.z })
     }
@@ -76,7 +75,7 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
     }
   })
   curve.curveType = 'chordal'
-  texture.wrapS = texture.wrapT = THREE.RepeatWrapping
+  customRopeTexture.wrapS = customRopeTexture.wrapT = THREE.RepeatWrapping
   return (
     <>
       <group position={[0, 3.68, 0]}>
@@ -94,7 +93,7 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
           <CuboidCollider args={[0.8, 1.125, 0.01]} />
           <group
             scale={2.25}
-            position={[0, -1.2, -0.05]}
+            position={[0, -1.3, 0]}
             onPointerOver={() => hover(true)}
             onPointerOut={() => hover(false)}
             onPointerUp={(e) => (e.target.releasePointerCapture(e.pointerId), drag(false))}
@@ -102,14 +101,18 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
             <mesh geometry={nodes.card.geometry}>
               <meshPhysicalMaterial map={customCardTexture} map-anisotropy={16} clearcoat={1} clearcoatRoughness={0.15} roughness={0.3} metalness={0.5} />
             </mesh>
-            <mesh geometry={nodes.clip.geometry} material={materials.metal} material-roughness={0.3} />
-            <mesh geometry={nodes.clamp.geometry} material={materials.metal} />
+            <mesh geometry={nodes.clip.geometry}>
+              <meshPhysicalMaterial color="#ffffff" metalness={0.95} roughness={0.15} clearcoat={1} clearcoatRoughness={0.15} />
+            </mesh>
+            <mesh geometry={nodes.clamp.geometry}>
+              <meshPhysicalMaterial color="#ffffff" metalness={0.9} roughness={0.25} clearcoat={1} clearcoatRoughness={0.15} />
+            </mesh>
           </group>
         </RigidBody>
       </group>
       <mesh ref={band}>
         <meshLineGeometry />
-        <meshLineMaterial color="white" depthTest={false} resolution={[width, height]} useMap map={texture} repeat={[-3, 1]} lineWidth={1} />
+        <meshLineMaterial color="white" depthTest={true} resolution={[width, height]} useMap map={customRopeTexture} repeat={[-2, 1]} lineWidth={1} />
       </mesh>
     </>
   )
