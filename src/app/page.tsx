@@ -56,7 +56,7 @@ export default function Home() {
           </div>
         <div className="relative z-10 pointer-events-none flex flex-col w-full">
           <div className="h-[85vh] lg:h-screen"></div>
-          <div className="pointer-events-auto h-[15vh] w-full lg:hidden flex flex-col items-center justify-center bg-transparent">
+          <div className="pointer-events-auto h-[15vh] w-full lg:hidden flex flex-col items-center justify-center bg-transparent mt-4">
             <div className="flex flex-col items-center justify-center animate-bounce -space-y-14 md:-space-y-19">
               <span className="text-[48px] md:text-[64px] font-light rotate-90">›</span>
               <span className="text-[48px] md:text-[64px] font-light rotate-90 opacity-75">›</span>
