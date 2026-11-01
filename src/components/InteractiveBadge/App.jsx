@@ -11,8 +11,14 @@ useGLTF.preload('https://assets.vercel.com/image/upload/contentful/image/e5382hc
 useTexture.preload('/card-badge.svg')
 useTexture.preload('/rope.svg')
 export default function App() {
+  const cameraZ =
+    typeof window !== 'undefined'
+      ? window.innerWidth < 768  ? 12.5
+      : window.innerWidth < 1024 ? 13
+      : 11 : 11
+
   return (
-    <Canvas camera={{ position: [0, 0, 11], fov: 25 }} style={{ touchAction: 'none' }}>
+    <Canvas camera={{ position: [0, 0, cameraZ], fov: 25 }} style={{ touchAction: 'none' }}>
       <ambientLight intensity={Math.PI} />
       <Suspense fallback={null}>
         <Physics interpolate gravity={[0, -40, 0]} timeStep={1 / 60}>
@@ -37,6 +43,11 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
   const customRopeTexture = useTexture('/rope.svg')
   customCardTexture.flipY = false
   const { width, height } = useThree((state) => state.size)
+  const vpWidth = useThree((state) => state.viewport.width)
+  const vpHeight   = useThree((state) => state.viewport.height)
+  const screenWidth = useThree((state) => state.size.width)
+  const xOffset = screenWidth >= 1024 ? -vpWidth * 0.3 : 0
+  const yAnchor = screenWidth >= 1024 ? 3.68 : 3.68 + vpHeight * 0.05
   const [curve] = useState(() => new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()]))
   const [dragged, drag] = useState(false)
   const [hovered, hover] = useState(false)
@@ -78,7 +89,7 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
   customRopeTexture.wrapS = customRopeTexture.wrapT = THREE.RepeatWrapping
   return (
     <>
-      <group position={[0, 3.68, 0]}>
+      <group position={[xOffset, yAnchor, 0]}>
         <RigidBody ref={fixed} {...segmentProps} type="fixed" />
         <RigidBody position={[0.5, 0, 0]} ref={j1} {...segmentProps}>
           <BallCollider args={[0.1]} />

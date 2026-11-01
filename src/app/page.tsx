@@ -50,13 +50,14 @@ export default function Home() {
 
   return (
     <main className="bg-dark">
-      <section className="grid grid-cols-1 lg:grid-cols-[40%_60%]">
-        <div className="flex flex-col w-full">
-          <div className="h-[85vh] lg:h-screen bg-transparent overflow-hidden touch-none">
+      <section className="relative grid grid-cols-1 lg:grid-cols-[40%_60%]">
+          <div className="absolute inset-x-0 z-0 top-0 lg:bottom-0 h-screen lg:h-auto touch-none">
             <InteractiveBadge />
           </div>
-          <div className="h-[15vh] w-full lg:hidden flex flex-col items-center justify-center bg-transparent">
-            <div className="flex flex-col items-center animate-bounce -space-y-12 md:-space-y-16">
+        <div className="relative z-10 pointer-events-none flex flex-col w-full">
+          <div className="h-[85vh] lg:h-screen"></div>
+          <div className="pointer-events-auto h-[15vh] w-full lg:hidden flex flex-col items-center justify-center bg-transparent">
+            <div className="flex flex-col items-center justify-center animate-bounce -space-y-14 md:-space-y-19">
               <span className="text-[48px] md:text-[64px] font-light rotate-90">›</span>
               <span className="text-[48px] md:text-[64px] font-light rotate-90 opacity-75">›</span>
               <span className="text-[48px] md:text-[64px] font-light rotate-90 opacity-50">›</span>
@@ -74,7 +75,7 @@ export default function Home() {
         </div> */}
 
         {/* <div className="p-8 md:p-12 lg:p-0 min-h-screen w-full flex flex-col gap-4 justify-center lg:pr-12 xl:pr-20 bg-[radial-gradient(circle_at_right,_var(--light)_0%,_var(--dark)_35%)]"> */}
-        <div className="p-8 md:p-12 lg:p-0 min-h-screen w-full flex flex-col gap-4 justify-center lg:pr-12 xl:pr-20 bg-transparent">
+        <div className="relative z-10 p-8 md:p-12 lg:p-0 min-h-screen w-full flex flex-col gap-4 justify-center lg:pr-12 xl:pr-20 bg-transparent">
           <div className="flex flex-col">
             <span className="text-[24px] md:text-[30px] lg:text-[28px] xl:text-[42px] font-semibold">About Me</span>
             <p className="text-[14px] md:text-[18px] lg:text-[16px] xl:text-[20px] text-justify leading-tight">I'm driven by the challenge of turning complex ideas into digital products that are intuitive, efficient, and relevant. My interest lies in how code, design, and insight can work together to solve real problems, not only from a technical perspective but also in ways that are purposeful and impactful for users. I enjoy exploring how users interact with systems, how data informs direction, and how small design decisions can shape large outcomes. With a technical mindset and a creative edge, I'm constantly learning new tools, experimenting with ideas, and seeking opportunities to contribute to projects that are both functional and forward-thinking.</p>
