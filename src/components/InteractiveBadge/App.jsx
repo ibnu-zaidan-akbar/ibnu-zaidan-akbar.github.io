@@ -12,7 +12,7 @@ useTexture.preload('/card-badge.svg')
 useTexture.preload('/rope.svg')
 export default function App() {
   return (
-    <Canvas camera={{ position: [0, 0, 11], fov: 25 }}>
+    <Canvas camera={{ position: [0, 0, 11], fov: 25 }} style={{ touchAction: 'none' }}>
       <ambientLight intensity={Math.PI} />
       <Suspense fallback={null}>
         <Physics interpolate gravity={[0, -40, 0]} timeStep={1 / 60}>

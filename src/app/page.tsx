@@ -50,9 +50,18 @@ export default function Home() {
 
   return (
     <main className="bg-dark">
-      <div className="grid lg:grid-cols-[35%_65%]">
-        <div className="">
-          <InteractiveBadge />
+      <section className="grid grid-cols-1 lg:grid-cols-[40%_60%]">
+        <div className="flex flex-col w-full">
+          <div className="h-[85vh] lg:h-screen bg-transparent overflow-hidden touch-none">
+            <InteractiveBadge />
+          </div>
+          <div className="h-[15vh] w-full lg:hidden flex flex-col items-center justify-center bg-transparent">
+            <div className="flex flex-col items-center animate-bounce -space-y-12 md:-space-y-16">
+              <span className="text-[48px] md:text-[64px] font-light rotate-90">›</span>
+              <span className="text-[48px] md:text-[64px] font-light rotate-90 opacity-75">›</span>
+              <span className="text-[48px] md:text-[64px] font-light rotate-90 opacity-50">›</span>
+            </div>
+          </div>
         </div>
         {/* <div className="md:py-12 lg:py-0 min-h-screen w-full flex flex-col gap-2 lg:gap-0 items-center justify-center bg-[radial-gradient(circle_at_center,_var(--light)_0%,_var(--dark)_50%)]">
           <span className="text-[20px] lg:text-[20px] xl:text-[24px] leading-tight">Hello, I am</span>
@@ -64,7 +73,8 @@ export default function Home() {
             />
         </div> */}
 
-        <div className="p-8 md:p-12 lg:p-0 min-h-screen w-full flex flex-col gap-4 justify-center lg:pr-12 xl:pr-20 bg-[radial-gradient(circle_at_right,_var(--light)_0%,_var(--dark)_35%)]">
+        {/* <div className="p-8 md:p-12 lg:p-0 min-h-screen w-full flex flex-col gap-4 justify-center lg:pr-12 xl:pr-20 bg-[radial-gradient(circle_at_right,_var(--light)_0%,_var(--dark)_35%)]"> */}
+        <div className="p-8 md:p-12 lg:p-0 min-h-screen w-full flex flex-col gap-4 justify-center lg:pr-12 xl:pr-20 bg-transparent">
           <div className="flex flex-col">
             <span className="text-[24px] md:text-[30px] lg:text-[28px] xl:text-[42px] font-semibold">About Me</span>
             <p className="text-[14px] md:text-[18px] lg:text-[16px] xl:text-[20px] text-justify leading-tight">I'm driven by the challenge of turning complex ideas into digital products that are intuitive, efficient, and relevant. My interest lies in how code, design, and insight can work together to solve real problems, not only from a technical perspective but also in ways that are purposeful and impactful for users. I enjoy exploring how users interact with systems, how data informs direction, and how small design decisions can shape large outcomes. With a technical mindset and a creative edge, I'm constantly learning new tools, experimenting with ideas, and seeking opportunities to contribute to projects that are both functional and forward-thinking.</p>
@@ -112,7 +122,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       <div className="flex flex-col py-4 px-8 md:px-0 lg:px-4 xl:py-12 xl:px-6">
         <span className="text-[30px] md:text-[36px] lg:text-[36px] xl:text-[48px] font-semibold pb-4 text-center">Featured Project</span>
