@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import InteractiveBadge from "@/src/components/InteractiveBadge"
+import GlowCursor from "@/src/components/cursor/CursorWrapper"
 
 export default function Home() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -13,11 +14,7 @@ export default function Home() {
     { id: 4, src: "/logo/c++.svg", xlWidth: 93, xlHeight:  93, size: "xl:w-[93px] xl:h-[93px] w-[75px] h-[75px]"},
     { id: 5, src: "/logo/c.svg", xlWidth: 103, xlHeight: 103, size: "xl:w-[103px] xl:h-[103px] w-[83px] h-[83px]"},
     { id: 6, src: "/logo/java.svg", xlWidth: 77, xlHeight: 103, size: "xl:w-[77px] xl:h-[103px] w-[62px] h-[83px]"},
-    { id: 7,src: "/logo/laravel.svg", xlWidth: 103, xlHeight:  83, size: "xl:w-[103px] xl:h-[83px] w-[83px] h-[67px]"},
-    { id: 8, src: "/logo/ci.svg", xlWidth: 103, xlHeight:  93, size: "xl:w-[103px] xl:h-[93px] w-[83px] h-[75px]"},
-    { id: 9, src: "/logo/html.svg", xlWidth: 73, xlHeight: 103, size: "xl:w-[73px] xl:h-[103px] w-[59px] h-[83px]"},
-    { id: 10, src: "/logo/css.svg", xlWidth: 72, xlHeight: 103, size: "xl:w-[72px] xl:h-[103px] w-[58px] h-[83px]"},
-    { id: 11, src: "/logo/js.svg", xlWidth: 72, xlHeight: 103, size: "xl:w-[72px] xl:h-[103px] w-[58px] h-[83px]"}
+    { id: 7,src: "/logo/laravel.svg", xlWidth: 103, xlHeight:  83, size: "xl:w-[103px] xl:h-[83px] w-[83px] h-[67px]"}
   ];
   const visibleSkills = skill.slice(0, 6);
   const hiddenSkills = skill.slice(6);
@@ -50,123 +47,127 @@ export default function Home() {
 
   return (
     <main className="bg-dark">
-      <section className="relative grid grid-cols-1 lg:grid-cols-[30%_70%]">
-        <div className="z-10 relative w-full flex flex-col top-20 px-6 md:px-10 xl:px-20 font-firasans leading-none touch-none">
-          <span className="text-[16px] md:text-[24px] lg:text-[32px] xl:text-[36px] font-semibold">Welcome to my</span>
-          <span className="text-[32px] md:text-[60px] lg:text-[72px] xl:text-[96px] font-bold uppercase">Portfolio</span>
-        </div>
-
-        <div className="w-full">
-          <div className="absolute inset-x-0 z-0 top-0 lg:bottom-0 h-screen lg:h-auto touch-none">
-            <InteractiveBadge />
+      <GlowCursor>
+        <section className="relative grid grid-cols-1 lg:grid-cols-[30%_70%]">
+          <div className="z-10 relative w-full flex flex-col top-20 px-6 md:px-10 xl:px-20 font-firasans leading-none text-white touch-none select-none">
+            <span className="text-[16px] md:text-[24px] lg:text-[32px] xl:text-[36px] font-semibold">Welcome to my</span>
+            <span className="text-[32px] md:text-[60px] lg:text-[72px] xl:text-[96px] font-bold uppercase">Portfolio</span>
           </div>
-          <div className="relative z-10 pointer-events-none flex flex-col w-full">
-            <div className="h-[85vh] lg:h-screen"></div>
-            <div className="pointer-events-auto h-[12vh] md:h-[15vh] w-full lg:hidden flex flex-col items-center justify-center bg-transparent -mt-12 md:-mt-22">
-              <div className="flex flex-col items-center justify-center animate-bounce -space-y-14 md:-space-y-19">
-                <span className="text-[48px] md:text-[64px] font-light rotate-90">›</span>
-                <span className="text-[48px] md:text-[64px] font-light rotate-90 opacity-75">›</span>
-                <span className="text-[48px] md:text-[64px] font-light rotate-90 opacity-50">›</span>
-              </div>
+
+          <div className="w-full">
+            <div className="absolute inset-x-0 z-0 top-0 lg:bottom-0 h-screen lg:h-auto touch-none">
+              <InteractiveBadge />
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="grid grid-cols-1 lg:grid-cols-[40%_60%]">
-        <div className="md:py-12 lg:py-0 min-h-screen w-full flex flex-col gap-2 lg:gap-0 items-center justify-center bg-[radial-gradient(circle_at_center,_var(--light)_0%,_var(--dark)_50%)]">
-          <span className="text-[20px] lg:text-[20px] xl:text-[24px] leading-tight">Hello, I am</span>
-          <span className="text-[28px] md:text-[36px] xl:text-[48px] leading-tight font-bold">Ibnu Zaidan Akbar</span>
-          <Image
-            src="/foto.png" alt="foto"
-            width={1290} height={540} priority
-            className="h-[70dvh] w-[211px] h-[325px] md:w-[533px] md:h-[428px] lg:w-[844px] lg:h-[420px] xl:w-[1290px] xl:h-[540px] w-auto object-contain"
-            />
-        </div>
-        <div className="p-8 md:p-12 lg:p-0 min-h-screen w-full flex flex-col gap-4 justify-center lg:pr-12 xl:pr-20 bg-[radial-gradient(circle_at_right,_var(--light)_0%,_var(--dark)_35%)]">
-        {/* <div className="relative z-10 p-8 md:p-12 lg:p-0 min-h-screen w-full flex flex-col gap-4 justify-center lg:pr-12 xl:pr-20 bg-transparent"> */}
-          <div className="flex flex-col">
-            <span className="text-[24px] md:text-[30px] lg:text-[28px] xl:text-[42px] font-semibold">About Me</span>
-            <p className="text-[14px] md:text-[18px] lg:text-[16px] xl:text-[20px] text-justify leading-tight">I'm driven by the challenge of turning complex ideas into digital products that are intuitive, efficient, and relevant. My interest lies in how code, design, and insight can work together to solve real problems, not only from a technical perspective but also in ways that are purposeful and impactful for users. I enjoy exploring how users interact with systems, how data informs direction, and how small design decisions can shape large outcomes. With a technical mindset and a creative edge, I'm constantly learning new tools, experimenting with ideas, and seeking opportunities to contribute to projects that are both functional and forward-thinking.</p>
-          </div>
-
-          <div className="flex flex-col lg:flex-row gap-6 lg:gap-0 justify-between">
-            <div className="flex flex-col">
-              <span className="text-[24px] md:text-[30px] lg:text-[28px] xl:text-[42px] font-semibold">Education</span>
-              <p className="text-[16px] md:text-[20px] lg:text-[16px] xl:text-[24px] leading-tight">● 2024 - Present<br/>Padjadjaran University, Sumedang</p>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-[24px] md:text-[30px] lg:text-[28px] xl:text-[42px] font-semibold">Internship Experience</span>
-              <p className="text-[16px] md:text-[20px] lg:text-[16px] xl:text-[24px] leading-tight">● Nov 2025 - Jan 2026<br/>Safeena Academy - Frontend Developer</p>
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <span className="text-[24px] md:text-[30px] lg:text-[28px] xl:text-[42px] font-semibold">Skills</span>
-            <div className="flex flex-wrap gap-y-4 gap-x-8 w-full justify-center lg:justify-start">
-              {visibleSkills.map((item) => (
-                <Image
-                  key={item.id} src={item.src}
-                  width={item.xlWidth} height={item.xlHeight}
-                  alt="logo" className={"hover:grayscale-0 transition-all " + item.size}
-                />
-              ))}
-
-              {isExpanded && hiddenSkills.map((item) => (
-                <Image
-                  key={item.id} src={item.src}
-                  width={item.xlWidth} height={item.xlHeight}
-                  alt="logo" className={"hover:grayscale-0 transition-all " + item.size}
-                />
-              ))}
-
-              {!isExpanded && (
-                <button onClick={() => setIsExpanded(true)} className="flex flex-col justify-center items-center gap-2 text-white hover:text-blue-400 transition-colors group">
-                  <Image
-                    src="/icons/expand.svg" alt="expand"
-                    width={40} height={40} className="group-hover:translate-x-1 transition-transform"
-                    />
-                    <span>Expand</span>
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div className="flex flex-col py-4 px-8 md:px-0 lg:px-4 xl:py-12 xl:px-6">
-        <span className="text-[30px] md:text-[36px] lg:text-[36px] xl:text-[48px] font-semibold pb-4 text-center">Featured Project</span>
-        <div className="flex flex-wrap gap-8 justify-center">
-          {project.map((item) => (
-            <a key={item.id} href={item.objective}>
-              <div className="bg-[#4E4F51] w-[300px] md:w-[400px] h-fit rounded-2xl flex flex-col" >
-                <div>
-                  <Image
-                    width={400} height={240}
-                    src={item.foto} alt="project"
-                    className="rounded-2xl w-[270px] h-[124px] md:w-[350px] md:h-[170px]"
-                  />
+            <div className="relative z-10 pointer-events-none flex flex-col w-full">
+              <div className="h-[85vh] lg:h-screen"></div>
+              <div className="pointer-events-auto h-[12vh] md:h-[15vh] w-full lg:hidden flex flex-col items-center justify-center bg-transparent -mt-12 md:-mt-22">
+                <div className="flex flex-col items-center justify-center animate-bounce -space-y-14 md:-space-y-19 text-white">
+                  <span className="text-[48px] md:text-[64px] font-light rotate-90">›</span>
+                  <span className="text-[48px] md:text-[64px] font-light rotate-90 opacity-75">›</span>
+                  <span className="text-[48px] md:text-[64px] font-light rotate-90 opacity-50">›</span>
                 </div>
-                <span className={"w-fit text-[12px] md:text-[16px] text-white/90 font-semibold mt-4 mx-4 py-1 px-4 inline-block rounded-full " + positionColor(item.position)}>{item.position}</span>
-                <span className="text-[16px] md:text-[20px] text-white font-bold py-2 px-4 leading-tight">{item.title}</span>
               </div>
-            </a>
-          ))}
-        </div>
-      </div>
-      <div className="flex flex-col pb-8 pt-6 lg:pb-12 gap-2 lg:gap-4">
-            <span className="text-[24px] md:text-[24px] lg:text-[28px] xl:text-[36px] font-semibold text-center">Contacts</span>
-            <div className="flex flex-wrap gap-x-4 md:gap-x-8 md:gap-y-4 w-full justify-center">
-              {icon.map((item) => (
-                <a key={item.id} href={item.objective} target="_blank">
-                  <Image
-                    width={item.width} height={item.height}
-                    src={item.src} alt="icon" className={"" + item.size}
-                    />
-                </a>
-              ))}
             </div>
           </div>
+        </section>
+        
+        <section className="grid grid-cols-1 lg:grid-cols-[40%_60%] text-white">
+          {/* <div className="md:py-12 lg:py-0 min-h-screen w-full flex flex-col gap-2 lg:gap-0 items-center justify-center bg-[radial-gradient(circle_at_center,_var(--light)_0%,_var(--dark)_50%)]"> */}
+          <div className="md:py-12 lg:py-0 min-h-screen w-full flex flex-col gap-2 lg:gap-0 items-center justify-center bg-transparent">
+            <span className="text-[20px] lg:text-[20px] xl:text-[24px] leading-tight">Hello, I am</span>
+            <span className="text-[28px] md:text-[36px] xl:text-[48px] leading-tight font-bold">Ibnu Zaidan Akbar</span>
+            <Image
+              src="/foto.png" alt="foto"
+              width={1290} height={540} priority
+              className="h-[70dvh] w-[211px] h-[325px] md:w-[533px] md:h-[428px] lg:w-[844px] lg:h-[420px] xl:w-[1290px] xl:h-[540px] w-auto object-contain"
+              />
+          </div>
+          {/* <div className="p-8 md:p-12 lg:p-0 min-h-screen w-full flex flex-col gap-4 justify-center lg:pr-12 xl:pr-20 bg-[radial-gradient(circle_at_right,_var(--light)_0%,_var(--dark)_35%)]"> */}
+          <div className="relative z-10 p-8 md:p-12 lg:p-0 min-h-screen w-full flex flex-col gap-4 justify-center lg:pr-12 xl:pr-20 bg-transparent">
+            <div className="flex flex-col">
+              <span className="text-[24px] md:text-[30px] lg:text-[28px] xl:text-[42px] font-semibold">About Me</span>
+              <p className="text-[14px] md:text-[18px] lg:text-[16px] xl:text-[20px] text-justify leading-tight">I'm driven by the challenge of turning complex ideas into digital products that are intuitive, efficient, and relevant. My interest lies in how code, design, and insight can work together to solve real problems, not only from a technical perspective but also in ways that are purposeful and impactful for users. I enjoy exploring how users interact with systems, how data informs direction, and how small design decisions can shape large outcomes. With a technical mindset and a creative edge, I'm constantly learning new tools, experimenting with ideas, and seeking opportunities to contribute to projects that are both functional and forward-thinking.</p>
+            </div>
+
+            <div className="flex flex-col lg:flex-row gap-6 lg:gap-0 justify-between">
+              <div className="flex flex-col">
+                <span className="text-[24px] md:text-[30px] lg:text-[28px] xl:text-[42px] font-semibold">Education</span>
+                <p className="text-[16px] md:text-[20px] lg:text-[16px] xl:text-[24px] leading-tight">● 2024 - Present<br/>Padjadjaran University, Sumedang</p>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[24px] md:text-[30px] lg:text-[28px] xl:text-[42px] font-semibold">Internship Experience</span>
+                <p className="text-[16px] md:text-[20px] lg:text-[16px] xl:text-[24px] leading-tight">● Nov 2025 - Jan 2026<br/>Safeena Academy - Frontend Developer</p>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <span className="text-[24px] md:text-[30px] lg:text-[28px] xl:text-[42px] font-semibold">Skills</span>
+              <div className="flex flex-wrap gap-y-4 gap-x-8 w-full justify-center lg:justify-start">
+                {visibleSkills.map((item) => (
+                  <Image
+                    key={item.id} src={item.src}
+                    width={item.xlWidth} height={item.xlHeight}
+                    alt="logo" className={"hover:grayscale-0 transition-all " + item.size}
+                  />
+                ))}
+
+                {isExpanded && hiddenSkills.map((item) => (
+                  <Image
+                    key={item.id} src={item.src}
+                    width={item.xlWidth} height={item.xlHeight}
+                    alt="logo" className={"hover:grayscale-0 transition-all " + item.size}
+                  />
+                ))}
+
+                {!isExpanded && (
+                  <button onClick={() => setIsExpanded(true)} className="flex flex-col justify-center items-center gap-2 text-white hover:text-blue-400 transition-colors group">
+                    <Image
+                      src="/icons/expand.svg" alt="expand"
+                      width={40} height={40} className="group-hover:translate-x-1 transition-transform"
+                      />
+                      <span>Expand</span>
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="flex flex-col py-4 px-8 md:px-0 lg:px-4 xl:py-12 xl:px-6">
+          <span className="text-[30px] md:text-[36px] lg:text-[36px] xl:text-[48px] font-semibold pb-4 text-center">Featured Project</span>
+          <div className="flex flex-wrap gap-8 justify-center">
+            {project.map((item) => (
+              <a key={item.id} href={item.objective}>
+                <div className="bg-[#4E4F51] w-[300px] md:w-[400px] h-fit rounded-2xl flex flex-col" >
+                  <div>
+                    <Image
+                      width={400} height={240}
+                      src={item.foto} alt="project"
+                      className="rounded-2xl w-[270px] h-[124px] md:w-[350px] md:h-[170px]"
+                    />
+                  </div>
+                  <span className={"w-fit text-[12px] md:text-[16px] text-white/90 font-semibold mt-4 mx-4 py-1 px-4 inline-block rounded-full " + positionColor(item.position)}>{item.position}</span>
+                  <span className="text-[16px] md:text-[20px] text-white font-bold py-2 px-4 leading-tight">{item.title}</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <section className="flex flex-col pb-8 pt-6 lg:pb-12 gap-2 lg:gap-4">
+          <span className="text-[24px] md:text-[24px] lg:text-[28px] xl:text-[36px] font-semibold text-center">Contacts</span>
+          <div className="flex flex-wrap gap-x-4 md:gap-x-8 md:gap-y-4 w-full justify-center">
+            {icon.map((item) => (
+              <a key={item.id} href={item.objective} target="_blank">
+                <Image
+                  width={item.width} height={item.height}
+                  src={item.src} alt="icon" className={"" + item.size}
+                  />
+              </a>
+            ))}
+          </div>
+        </section>
+      </GlowCursor>
     </main>
   );
 }
