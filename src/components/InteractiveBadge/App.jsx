@@ -13,8 +13,7 @@ useTexture.preload('/rope.svg')
 export default function App() {
   const cameraZ =
     typeof window !== 'undefined'
-      ? window.innerWidth < 768  ? 12.5
-      : window.innerWidth < 1024 ? 13
+      ? window.innerWidth < 1024 ? 13
       : 11 : 11
 
   return (
