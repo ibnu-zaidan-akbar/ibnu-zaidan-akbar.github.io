@@ -45,7 +45,7 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
   const vpWidth = useThree((state) => state.viewport.width)
   const vpHeight   = useThree((state) => state.viewport.height)
   const screenWidth = useThree((state) => state.size.width)
-  const xOffset = screenWidth >= 1024 ? -vpWidth * 0.3 : 0
+  // const xOffset = screenWidth >= 1024 ? 0 : 0
   const yAnchor = screenWidth >= 1024 ? 3.68 : 3.68 + vpHeight * 0.05
   const [curve] = useState(() => new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()]))
   const [dragged, drag] = useState(false)
@@ -88,7 +88,7 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
   customRopeTexture.wrapS = customRopeTexture.wrapT = THREE.RepeatWrapping
   return (
     <>
-      <group position={[xOffset, yAnchor, 0]}>
+      <group position={[0, yAnchor, 0]}>
         <RigidBody ref={fixed} {...segmentProps} type="fixed" />
         <RigidBody position={[0.5, 0, 0]} ref={j1} {...segmentProps}>
           <BallCollider args={[0.1]} />

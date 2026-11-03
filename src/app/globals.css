@@ -12,6 +12,8 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-blackOps: var(--font-blackOps);
+  --font-firaSans: var(--font-firaSans);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -43,4 +45,11 @@ body {
 
 .bg-light {
   background-color: var(--light);
+}
+
+.font-blackops {
+  font-family: var(--font-blackops), sans-serif;
+}
+.font-firasans {
+  font-family: var(--font-firasans), sans-serif;
 }
