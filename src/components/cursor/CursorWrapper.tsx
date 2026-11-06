@@ -8,7 +8,7 @@ interface CursorWrapperProps {
 
 export default function CursorWrapper({ children }: CursorWrapperProps) {
   return (
-    <div className="relative w-full min-h-screen overflow-hidden">
+    <div className="relative w-full min-h-screen overflow-clip">
       <GlowCursor
         color="#5f8bff"
         intensity={1.3}
