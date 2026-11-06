@@ -1026,7 +1026,7 @@ const GlowCursor = ({
   return (
     <div
       ref={containerRef}
-      className={['relative h-full w-full overflow-hidden', className].filter(Boolean).join(' ')}
+      className={['relative h-full w-full overflow-clip', className].filter(Boolean).join(' ')}
       style={style}
       {...rest}
     >

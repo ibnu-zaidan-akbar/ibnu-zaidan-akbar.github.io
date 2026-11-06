@@ -5,6 +5,7 @@ import Image from "next/image";
 import InteractiveBadge from "@/src/components/InteractiveBadge"
 import GlowCursor from "@/src/components/cursor/CursorWrapper"
 import PanoramaSlider from '../components/PanoramaSlider';
+import Timeline from '../components/Timeline'
 
 export default function Home() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -32,20 +33,6 @@ export default function Home() {
     { id: 3, foto: "/projectProfile/himasela.png", objective: "/himasela", title: "Organization Website HIMASELA", position: "fullstack developer"},
   ]
 
-  const positionColor = (posisi: string) => {
-    if(posisi === "fullstack developer"){
-      return "bg-[#09C25B]/70"
-    }
-    else if(posisi === "frontend developer") {
-      return "bg-[#FFE501]/70"
-    }
-    else if(posisi === "backend developer") {
-      return "bg-[#272F7A]/70"
-    }
-
-    return "bg-[#4E4F51]"
-  }
-
   return (
     <main className="bg-dark">
       <GlowCursor>
@@ -72,27 +59,13 @@ export default function Home() {
           </div>
         </section>
         
-        {/* <section className="grid grid-cols-1 lg:grid-cols-2 text-white"> */}
-          {/* <div className="md:py-12 lg:py-0 min-h-screen w-full flex flex-col gap-2 lg:gap-0 items-center justify-center bg-[radial-gradient(circle_at_center,_var(--light)_0%,_var(--dark)_50%)]"> */}
-          {/* <div className="md:py-12 lg:py-0 min-h-screen w-full flex flex-col gap-2 lg:gap-0 items-center justify-center bg-transparent">
-            <span className="text-[20px] lg:text-[20px] xl:text-[24px] leading-tight">Hello, I am</span>
-            <span className="text-[28px] md:text-[36px] xl:text-[48px] leading-tight font-bold">Ibnu Zaidan Akbar</span> */}
-            {/* <Image
-              src="/foto.png" alt="foto"
-              width={1290} height={540} priority
-              className="h-[70dvh] w-[211px] h-[325px] md:w-[533px] md:h-[428px] lg:w-[844px] lg:h-[420px] xl:w-[1290px] xl:h-[540px] w-auto object-contain"
-              /> */}
-              {/* <p className="text-[14px] md:text-[18px] lg:text-[16px] xl:text-[20px] text-justify leading-tight">I'm driven by the challenge of turning complex ideas into digital products that are intuitive, efficient, and relevant. My interest lies in how code, design, and insight can work together to solve real problems, not only from a technical perspective but also in ways that are purposeful and impactful for users. I enjoy exploring how users interact with systems, how data informs direction, and how small design decisions can shape large outcomes. With a technical mindset and a creative edge, I'm constantly learning new tools, experimenting with ideas, and seeking opportunities to contribute to projects that are both functional and forward-thinking.</p>
-          </div> */}
-          {/* <div className="p-8 md:p-12 lg:p-0 min-h-screen w-full flex flex-col gap-4 justify-center lg:pr-12 xl:pr-20 bg-[radial-gradient(circle_at_right,_var(--light)_0%,_var(--dark)_35%)]"> */}
-          {/* <div className="relative z-10 p-8 md:p-12 lg:p-0 min-h-screen w-full flex flex-col gap-4 justify-center lg:pr-12 xl:pr-20 bg-transparent">
-            <div className="flex flex-col lg:flex-row gap-6 lg:gap-0 justify-between">
-              <div className="flex flex-col">
-                <span className="text-[24px] md:text-[30px] lg:text-[28px] xl:text-[42px] font-semibold">Education</span>
-                <p className="text-[16px] md:text-[20px] lg:text-[16px] xl:text-[24px] leading-tight">● 2024 - Present<br/>Padjadjaran University, Sumedang</p>
-              </div>
-            </div>
-
+        <section className="py-12 h-screen grid grid-cols-1 lg:grid-cols-[60%_40%] text-white">
+          <div className="md:py-12 lg:py-0 px-12 w-full flex flex-col gap-4 bg-transparent">
+            <p className="indent-10 text-[14px] md:text-[18px] lg:text-[16px] xl:text-[20px] leading-tight">
+              I used to build scalable platforms. Now, I'm teaching them how to think. Hello, I am <b>Ibnu Zaidan Akbar</b>. As an Informatics Engineering student from Universitas Padjadjaran evolving from a Full-Stack Developer into an <b>AI Engineer</b>, I operate at the exact intersection of robust software architecture and data-driven intelligence. 
+              I am driven by the challenge of turning complex ideas into digital products that are not only intuitive and efficient but also predictive. Having mastered the art of building scalable applications, my focus is now on designing ML pipelines and intelligent algorithms that solve real-world problems. 
+              For me, it's no longer just about writing code that works, but it's about deploying intelligent solutions that learn, adapt, and deliver a purposeful impact for users.
+            </p>
             <div className="flex flex-col gap-2">
               <span className="text-[24px] md:text-[30px] lg:text-[28px] xl:text-[42px] font-semibold">Skills</span>
               <div className="flex flex-wrap gap-y-4 gap-x-8 w-full justify-center lg:justify-start">
@@ -124,33 +97,17 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </section> */}
-
-        <PanoramaSlider/>
-
-        <section className="flex flex-col py-4 px-8 md:px-0 lg:px-4 xl:py-12 xl:px-6">
-          <span className="text-[30px] md:text-[36px] lg:text-[36px] xl:text-[48px] font-semibold pb-4 text-center">Featured Project</span>
-          <div className="flex flex-wrap gap-8 justify-center">
-            {project.map((item) => (
-              <a key={item.id} href={item.objective}>
-                <div className="bg-[#4E4F51] w-[300px] md:w-[400px] h-fit rounded-2xl flex flex-col" >
-                  <div>
-                    <Image
-                      width={400} height={240}
-                      src={item.foto} alt="project"
-                      className="rounded-2xl w-[270px] h-[124px] md:w-[350px] md:h-[170px]"
-                    />
-                  </div>
-                  <span className={"w-fit text-[12px] md:text-[16px] text-white/90 font-semibold mt-4 mx-4 py-1 px-4 inline-block rounded-full " + positionColor(item.position)}>{item.position}</span>
-                  <span className="text-[16px] md:text-[20px] text-white font-bold py-2 px-4 leading-tight">{item.title}</span>
-                </div>
-              </a>
-            ))}
+          <div className="hidden md:block relative md:p-12 lg:p-0 w-full flex items-center bg-transparent w-fit h-full">
+            <Image src="/foto2.png" alt="foto" fill priority className=" object-contain"/>
           </div>
         </section>
 
+        <PanoramaSlider/>
+        
+        <Timeline/>
+
         <section className="flex flex-col pb-8 pt-6 lg:pb-12 gap-2 lg:gap-4">
-          <span className="text-[24px] md:text-[24px] lg:text-[28px] xl:text-[36px] font-semibold text-center">Contacts</span>
+          <span className="text-[24px] md:text-[24px] lg:text-[28px] xl:text-[36px] font-semibold text-white text-center">Contacts</span>
           <div className="flex flex-wrap gap-x-4 md:gap-x-8 md:gap-y-4 w-full justify-center">
             {icon.map((item) => (
               <a key={item.id} href={item.objective} target="_blank">
