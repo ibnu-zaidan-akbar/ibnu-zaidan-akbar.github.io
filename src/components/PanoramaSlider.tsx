@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import Link from 'next/link';
 import { motion, useMotionValue, useAnimationFrame, animate } from 'framer-motion';
 
 const project = [
@@ -11,9 +12,23 @@ const project = [
 
 const items = [...project, ...project]; 
 const angle = 360 / items.length;
-const radius = 700;
+// const radius = 700;
 
 export default function PanoramaSlider() {
+    const [isMobile, setIsMobile] = useState(false);
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 1024);
+        };
+        
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    const dynamicPerspective = isMobile ? '700px' : '1200px'; 
+    const dynamicRadius = isMobile ? 500 : 700;
+
     const rotationY = useMotionValue(0);
     const [isHovered, setIsHovered] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
@@ -49,12 +64,12 @@ export default function PanoramaSlider() {
 
     return (
         <section className="py-12 px-8 lg:py-24 lg:px-32 w-full bg-transparent overflow-hidden flex flex-col items-center">
-            <h2 className="text-[24px] lg:text-[28px] font-bold text-white z-10 text-center leading-none">Latest Project Showcase</h2>
-            <div style={{ perspective: '1200px' }} className="relative w-full h-[240px] lg:h-[400px] flex items-center justify-center [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]" >
+            <h2 className="text-[24px] md:text-[28px] lg:text-[32px] font-bold text-white z-10 text-center leading-none">Latest Project Showcase</h2>
+            <div style={{ perspective: dynamicPerspective }} className="relative w-full h-[200px] md:h-[280px] lg:h-[360px] flex items-center justify-center [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]" >
                 <motion.div className="relative w-full h-full flex items-center justify-center pointer-events-none" style={{ transformStyle: 'preserve-3d', rotateY: rotationY, }} onPanStart={handlePanStart} onPan={handlePan} onPanEnd={handlePanEnd}>
                     {items.map((item, index) => (
-                        <motion.div key={`${item.id}-${index}`} style={{ transform: `rotateY(${index * angle}deg) translateZ(${-radius}px)`, backfaceVisibility: 'hidden', }}
-                            className="absolute w-[420px] h-[240px] lg:w-[720px] lg:h-[400px] rounded-lg md:rounded-2xl overflow-hidden border border-white/10 pointer-events-auto cursor-grab active:cursor-grabbing select-none"
+                        <motion.div key={`${item.id}-${index}`} style={{ transform: `rotateY(${index * angle}deg) translateZ(${-dynamicRadius}px)`, backfaceVisibility: 'hidden', }}
+                            className="absolute w-[70vh] h-[240px] md:w-[60vh] md:h-[320px] lg:w-[720px] lg:h-[400px] rounded-lg lg:rounded-2xl overflow-hidden border border-white/10 pointer-events-auto cursor-grab active:cursor-grabbing select-none"
                             onHoverStart={() => setIsHovered(true)} onHoverEnd={() => setIsHovered(false)}
                         >
                             <img src={item.foto} alt={item.title} className="object-cover w-full h-full pointer-events-none"/>
@@ -66,6 +81,7 @@ export default function PanoramaSlider() {
                     ))}
                 </motion.div>
             </div>
+            <Link href="/project" className="text-[12px] md:text-[16px] lg:text-[20px] text-white z-10 text-xenter underline leading-none cursor-pointer">View All Project</Link>
         </section>
     );
 }

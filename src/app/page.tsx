@@ -97,29 +97,29 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="hidden md:block relative md:p-12 lg:p-0 w-full flex items-center bg-transparent w-fit h-full">
+          <div className="hidden lg:block relative md:p-12 lg:p-0 w-full flex items-center bg-transparent w-fit h-full">
             <Image src="/foto2.png" alt="foto" fill priority className=" object-contain"/>
           </div>
         </section>
-
-        <PanoramaSlider/>
-        
-        <Timeline/>
-
-        <section className="flex flex-col pb-8 pt-6 lg:pb-12 gap-2 lg:gap-4">
-          <span className="text-[24px] md:text-[24px] lg:text-[28px] xl:text-[36px] font-semibold text-white text-center">Contacts</span>
-          <div className="flex flex-wrap gap-x-4 md:gap-x-8 md:gap-y-4 w-full justify-center">
-            {icon.map((item) => (
-              <a key={item.id} href={item.objective} target="_blank">
-                <Image
-                  width={item.width} height={item.height}
-                  src={item.src} alt="icon" className={"" + item.size}
-                  />
-              </a>
-            ))}
-          </div>
-        </section>
       </GlowCursor>
+
+      <Timeline/>
+      
+      <PanoramaSlider/>
+
+      <section className="flex flex-col pb-8 pt-6 lg:pb-12 gap-2 lg:gap-4">
+        <span className="text-[24px] md:text-[24px] lg:text-[28px] xl:text-[36px] font-semibold text-white text-center">Contacts</span>
+        <div className="flex flex-wrap gap-x-4 md:gap-x-8 md:gap-y-4 w-full justify-center">
+          {icon.map((item) => (
+            <a key={item.id} href={item.objective} target="_blank">
+              <Image
+                width={item.width} height={item.height}
+                src={item.src} alt="icon" className={"" + item.size}
+                />
+            </a>
+          ))}
+        </div>
+      </section>
     </main>
   );
 }
