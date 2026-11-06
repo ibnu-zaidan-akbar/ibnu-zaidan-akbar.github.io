@@ -21,7 +21,7 @@ export default function PanoramaSlider() {
 
     useAnimationFrame(() => {
         if (!isHovered && !isDragging) {
-            rotationY.set(rotationY.get() - 0.2); 
+            rotationY.set(rotationY.get() - 0.1); 
         }
     });
 
@@ -32,7 +32,7 @@ export default function PanoramaSlider() {
     const handlePanEnd = (e: any, info: any) => {
         setIsDragging(false);
         if (Math.abs(info.velocity.x) > 50) {
-            const momentum = info.velocity.x * 0.1;
+            const momentum = info.velocity.x * 0.01;
             animationRef.current = animate(rotationY, rotationY.get() - momentum, {
                 type: 'inertia',
                 velocity: -momentum,
@@ -48,27 +48,22 @@ export default function PanoramaSlider() {
     };
 
     return (
-        <section className="py-24 w-full bg-transparent overflow-hidden flex flex-col items-center">
-            <h2 className="text-3xl font-bold text-white mb-20 z-10 text-center">Interactive AI Showcase</h2>
-            <div style={{ perspective: '1200px' }}
-                className="relative w-full max-w-7xl h-[400px] flex items-center justify-center [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]" 
-            >
-                <motion.div className="relative w-full h-full flex items-center justify-center pointer-events-none" style={{ transformStyle: 'preserve-3d', rotateY: rotationY, }}
-                    onPanStart={handlePanStart} onPan={handlePan} onPanEnd={handlePanEnd}
-                >
-                {items.map((item, index) => (
-                    <motion.div key={`${item.id}-${index}`}
-                        className="absolute w-[320px] h-[400px] rounded-2xl overflow-hidden border border-white/10 pointer-events-auto cursor-grab active:cursor-grabbing select-none"
-                        style={{ transform: `rotateY(${index * angle}deg) translateZ(${-radius}px)`, backfaceVisibility: 'hidden', }}
-                        onHoverStart={() => setIsHovered(true)} onHoverEnd={() => setIsHovered(false)}
-                    >
-                        <img src={item.foto} alt={item.title} className="object-cover w-full h-full pointer-events-none"/>
-                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent flex flex-col justify-end p-6 pointer-events-none">
-                            <p className="text-blue-400 text-sm font-semibold mb-1 uppercase tracking-wider">{item.position}</p>
-                            <h3 className="text-2xl font-bold text-white leading-tight">{item.title}</h3>
-                        </div>
-                    </motion.div>
-                ))}
+        <section className="py-24 px-32 w-full bg-transparent overflow-hidden flex flex-col items-center">
+            <h2 className="text-3xl font-bold text-white z-10 text-center">Latest Project Showcase</h2>
+            <div style={{ perspective: '1200px' }} className="relative w-full h-[400px] flex items-center justify-center [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]" >
+                <motion.div className="relative w-full h-full flex items-center justify-center pointer-events-none" style={{ transformStyle: 'preserve-3d', rotateY: rotationY, }} onPanStart={handlePanStart} onPan={handlePan} onPanEnd={handlePanEnd}>
+                    {items.map((item, index) => (
+                        <motion.div key={`${item.id}-${index}`} style={{ transform: `rotateY(${index * angle}deg) translateZ(${-radius}px)`, backfaceVisibility: 'hidden', }}
+                            className="absolute w-[720px] h-[400px] rounded-2xl overflow-hidden border border-white/10 pointer-events-auto cursor-grab active:cursor-grabbing select-none"
+                            onHoverStart={() => setIsHovered(true)} onHoverEnd={() => setIsHovered(false)}
+                        >
+                            <img src={item.foto} alt={item.title} className="object-cover w-full h-full pointer-events-none"/>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent flex flex-col justify-end p-6 pointer-events-none">
+                                <p className="text-blue-400 text-sm font-semibold mb-1 tracking-wider">As a <span className="uppercase">{item.position}</span></p>
+                                <h3 className="text-2xl font-bold text-white leading-tight">{item.title}</h3>
+                            </div>
+                        </motion.div>
+                    ))}
                 </motion.div>
             </div>
         </section>
