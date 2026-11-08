@@ -18,8 +18,8 @@ export default function Home() {
     { id: 6, src: "/logo/java.svg", xlWidth: 77, xlHeight: 103, size: "xl:w-[77px] xl:h-[103px] w-[48px] h-[68px]"},
     { id: 7,src: "/logo/laravel.svg", xlWidth: 103, xlHeight:  83, size: "xl:w-[103px] xl:h-[83px] w-[80px] h-[56px]"}
   ];
-  const visibleSkills = skill.slice(0, 6);
-  const hiddenSkills = skill.slice(6);
+  const visibleSkills = skill.slice(0, 7);
+  const hiddenSkills = skill.slice(8);
 
   const icon = [
     { id: 1, src: "/icons/wa.svg", width: 60, height: 60, size: "w-[40px] h-[40px] lg:h-[50px] lg:w-[50px] xl:h-[60px] xl:w-[60px]", objective: "https://wa.me/6282325299550"},
@@ -59,7 +59,7 @@ export default function Home() {
           </div>
         </section>
         
-        <section className="py-12 h-screen grid grid-cols-1 lg:grid-cols-[60%_40%] text-white">
+        <section className="py-4 md:py-12 md:h-screen grid grid-cols-1 lg:grid-cols-[60%_40%] text-white">
           <div className="md:py-12 lg:py-0 px-12 w-full flex flex-col gap-4 bg-transparent">
             <p className="indent-10 text-[14px] md:text-[18px] lg:text-[16px] xl:text-[20px] text-justify lg:text-start leading-tight">
               I used to build scalable platforms. Now, I'm teaching them how to think. Hello, I am <b>Ibnu Zaidan Akbar</b>. As an Informatics Engineering student from Universitas Padjadjaran evolving from a Full-Stack Developer into an <b>AI Engineer</b>, I operate at the exact intersection of robust software architecture and data-driven intelligence. 

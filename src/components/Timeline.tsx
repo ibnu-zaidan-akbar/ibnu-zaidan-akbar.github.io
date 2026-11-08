@@ -98,8 +98,8 @@ export default function PinnedTimeline() {
                   activeIndex === index ? 'bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.6)] scale-100' : 'bg-gray-800 scale-0'
                 }`} />
 
-                <p className="text-white text-sm font-mono tracking-widest mb-1">{item.employment}</p>
-                <p className="text-gray-400 text-sm font-mono tracking-widest mb-3">{item.period}</p>
+                <p className="text-gray-400 text-sm font-mono tracking-widest mb-1">{item.period}</p>
+                <p className="text-white text-sm font-mono tracking-widest mb-4">{item.employment}</p>
                 <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">{item.role}</h3>
                 <p className="text-blue-400 text-lg font-medium mb-4">{item.company}</p>
                 <p className="text-gray-400 text-base md:text-lg leading-relaxed line-clamp-5">{item.description}</p>

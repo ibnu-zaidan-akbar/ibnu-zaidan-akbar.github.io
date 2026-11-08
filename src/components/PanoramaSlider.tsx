@@ -12,7 +12,6 @@ const project = [
 
 const items = [...project, ...project]; 
 const angle = 360 / items.length;
-// const radius = 700;
 
 export default function PanoramaSlider() {
     const [isMobile, setIsMobile] = useState(false);
@@ -63,7 +62,7 @@ export default function PanoramaSlider() {
     };
 
     return (
-        <section className="py-12 px-8 lg:py-24 lg:px-32 w-full bg-transparent overflow-hidden flex flex-col items-center">
+        <section className="py-4 md:py-12 px-8 lg:py-24 lg:px-32 w-full bg-transparent overflow-hidden flex flex-col items-center">
             <h2 className="text-[24px] md:text-[28px] lg:text-[32px] font-bold text-white z-10 text-center leading-none">Latest Project Showcase</h2>
             <div style={{ perspective: dynamicPerspective }} className="relative w-full h-[200px] md:h-[280px] lg:h-[360px] flex items-center justify-center [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]" >
                 <motion.div className="relative w-full h-full flex items-center justify-center pointer-events-none" style={{ transformStyle: 'preserve-3d', rotateY: rotationY, }} onPanStart={handlePanStart} onPan={handlePan} onPanEnd={handlePanEnd}>
