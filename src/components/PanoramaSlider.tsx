@@ -69,7 +69,7 @@ export default function PanoramaSlider() {
                 <motion.div className="relative w-full h-full flex items-center justify-center pointer-events-none" style={{ transformStyle: 'preserve-3d', rotateY: rotationY, }} onPanStart={handlePanStart} onPan={handlePan} onPanEnd={handlePanEnd}>
                     {items.map((item, index) => (
                         <motion.div key={`${item.id}-${index}`} style={{ transform: `rotateY(${index * angle}deg) translateZ(${-dynamicRadius}px)`, backfaceVisibility: 'hidden', }}
-                            className="absolute w-[70vh] h-[240px] md:w-[60vh] md:h-[320px] lg:w-[720px] lg:h-[400px] rounded-lg lg:rounded-2xl overflow-hidden border border-white/10 pointer-events-auto cursor-grab active:cursor-grabbing select-none"
+                            className="absolute w-[60vh] h-[240px] md:h-[320px] lg:w-[720px] lg:h-[400px] rounded-lg lg:rounded-2xl overflow-hidden border border-white/10 pointer-events-auto cursor-grab active:cursor-grabbing select-none"
                             onHoverStart={() => setIsHovered(true)} onHoverEnd={() => setIsHovered(false)}
                         >
                             <img src={item.foto} alt={item.title} className="object-cover w-full h-full pointer-events-none"/>

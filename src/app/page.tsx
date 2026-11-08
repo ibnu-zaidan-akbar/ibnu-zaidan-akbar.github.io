@@ -10,13 +10,13 @@ import Timeline from '../components/Timeline'
 export default function Home() {
   const [isExpanded, setIsExpanded] = useState(false);
   const skill = [
-    { id: 1, src:"/logo/nextjs.svg", xlWidth: 103, xlHeight:  84, size: "xl:w-[103px] xl:h-[84px] lg:w-[83px] w-[80px] h-[68px]"},
-    { id: 2,src: "/logo/tailwind.svg", xlWidth: 100, xlHeight:  77, size: "xl:w-[100px] xl:h-[77px] lg:w-[80px] w-[75px] h-[62px]"},
-    { id: 3, src: "/logo/react.svg", xlWidth: 103, xlHeight:  93, size: "xl:w-[103px] xl:h-[93px] lg:w-[83px] w-[75px] h-[75px]"},
-    { id: 4, src: "/logo/c++.svg", xlWidth: 93, xlHeight:  93, size: "xl:w-[93px] xl:h-[93px] w-[75px] h-[75px]"},
-    { id: 5, src: "/logo/c.svg", xlWidth: 103, xlHeight: 103, size: "xl:w-[103px] xl:h-[103px] w-[83px] h-[83px]"},
-    { id: 6, src: "/logo/java.svg", xlWidth: 77, xlHeight: 103, size: "xl:w-[77px] xl:h-[103px] w-[62px] h-[83px]"},
-    { id: 7,src: "/logo/laravel.svg", xlWidth: 103, xlHeight:  83, size: "xl:w-[103px] xl:h-[83px] w-[83px] h-[67px]"}
+    { id: 1, src:"/logo/nextjs.svg", xlWidth: 103, xlHeight:  84, size: "xl:w-[103px] xl:h-[84px] lg:w-[83px] w-[64px] h-[52px]"},
+    { id: 2,src: "/logo/tailwind.svg", xlWidth: 100, xlHeight:  77, size: "xl:w-[100px] xl:h-[77px] lg:w-[80px] w-[60px] h-[44px]"},
+    { id: 3, src: "/logo/react.svg", xlWidth: 103, xlHeight:  93, size: "xl:w-[103px] xl:h-[93px] lg:w-[83px] w-[60px] h-[60px]"},
+    { id: 4, src: "/logo/c++.svg", xlWidth: 93, xlHeight:  93, size: "xl:w-[93px] xl:h-[93px] w-[60px] h-[60px]"},
+    { id: 5, src: "/logo/c.svg", xlWidth: 103, xlHeight: 103, size: "xl:w-[103px] xl:h-[103px] w-[68px] h-[68px]"},
+    { id: 6, src: "/logo/java.svg", xlWidth: 77, xlHeight: 103, size: "xl:w-[77px] xl:h-[103px] w-[48px] h-[68px]"},
+    { id: 7,src: "/logo/laravel.svg", xlWidth: 103, xlHeight:  83, size: "xl:w-[103px] xl:h-[83px] w-[80px] h-[56px]"}
   ];
   const visibleSkills = skill.slice(0, 6);
   const hiddenSkills = skill.slice(6);
@@ -61,7 +61,7 @@ export default function Home() {
         
         <section className="py-12 h-screen grid grid-cols-1 lg:grid-cols-[60%_40%] text-white">
           <div className="md:py-12 lg:py-0 px-12 w-full flex flex-col gap-4 bg-transparent">
-            <p className="indent-10 text-[14px] md:text-[18px] lg:text-[16px] xl:text-[20px] leading-tight">
+            <p className="indent-10 text-[14px] md:text-[18px] lg:text-[16px] xl:text-[20px] text-justify lg:text-start leading-tight">
               I used to build scalable platforms. Now, I'm teaching them how to think. Hello, I am <b>Ibnu Zaidan Akbar</b>. As an Informatics Engineering student from Universitas Padjadjaran evolving from a Full-Stack Developer into an <b>AI Engineer</b>, I operate at the exact intersection of robust software architecture and data-driven intelligence. 
               I am driven by the challenge of turning complex ideas into digital products that are not only intuitive and efficient but also predictive. Having mastered the art of building scalable applications, my focus is now on designing ML pipelines and intelligent algorithms that solve real-world problems. 
               For me, it's no longer just about writing code that works, but it's about deploying intelligent solutions that learn, adapt, and deliver a purposeful impact for users.
