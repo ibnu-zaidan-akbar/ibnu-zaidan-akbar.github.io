@@ -80,7 +80,7 @@ export default function PanoramaSlider() {
                     ))}
                 </motion.div>
             </div>
-            <Link href="/project" className="text-[12px] md:text-[16px] lg:text-[20px] text-white z-10 text-xenter underline leading-none cursor-pointer">View All Project</Link>
+            <Link href="/experience" className="text-[12px] md:text-[16px] lg:text-[20px] text-white z-10 text-xenter underline leading-none cursor-pointer">View All Project</Link>
         </section>
     );
 }
