@@ -23,6 +23,9 @@ type DomeGalleryProps = {
   imageBorderRadius?: string;
   openedImageBorderRadius?: string;
   grayscale?: boolean;
+  autoRotate?: boolean;
+  autoRotateSpeed?: number;
+  hoverRotateSpeed?: number;
 };
 
 type ItemDef = {
@@ -157,7 +160,10 @@ export default function DomeGallery({
   openedImageHeight = '400px',
   imageBorderRadius = '30px',
   openedImageBorderRadius = '30px',
-  grayscale = true
+  grayscale = true,
+  autoRotate = true,
+  autoRotateSpeed = 0.1,
+  hoverRotateSpeed = 0.05
 }: DomeGalleryProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLDivElement>(null);
@@ -185,6 +191,7 @@ export default function DomeGallery({
   const openingRef = useRef(false);
   const openStartedAtRef = useRef(0);
   const lastDragEndAt = useRef(0);
+  const isHoveredRef = useRef(false);
 
   const scrollLockedRef = useRef(false);
   const lockScroll = useCallback(() => {
@@ -296,7 +303,26 @@ export default function DomeGallery({
 
   useEffect(() => {
     applyTransform(rotationRef.current.x, rotationRef.current.y);
-  }, []);
+    if (!autoRotate) return;
+    let rafId: number;
+    let currentSpeed = autoRotateSpeed;
+    const animate = () => {
+      if (!draggingRef.current && !inertiaRAF.current && !focusedElRef.current && !openingRef.current) {
+        const targetSpeed = isHoveredRef.current ? hoverRotateSpeed : autoRotateSpeed;
+        currentSpeed += (targetSpeed - currentSpeed) * 0.05;
+
+        const nextY = wrapAngleSigned(rotationRef.current.y + currentSpeed);
+        rotationRef.current.y = nextY;
+        applyTransform(rotationRef.current.x, nextY);
+      } else {
+        currentSpeed = isHoveredRef.current ? hoverRotateSpeed : autoRotateSpeed;
+      }
+      rafId = requestAnimationFrame(animate);
+    };
+
+    rafId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafId);
+  }, [autoRotate, autoRotateSpeed, hoverRotateSpeed]);
 
   const stopInertia = useCallback(() => {
     if (inertiaRAF.current) {
@@ -771,6 +797,10 @@ export default function DomeGallery({
       inset: 10px;
       pointer-events: none;
     }
+    .item__image:hover img {
+      filter: grayscale(0) !important;
+      transition: filter 300ms ease-in-out;
+    }
   `;
 
   return (
@@ -778,6 +808,8 @@ export default function DomeGallery({
       <style dangerouslySetInnerHTML={{ __html: cssStyles }} />
       <div
         ref={rootRef}
+        onMouseEnter={() => { isHoveredRef.current = true; }}
+        onMouseLeave={() => { isHoveredRef.current = false; }}
         className="sphere-root relative w-full h-full"
         style={
           {

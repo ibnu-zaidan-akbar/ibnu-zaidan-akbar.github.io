@@ -21,7 +21,6 @@ export default async function PpkOrmawaPage() {
 
   const project = data as Project;
   const galleryImages = project.image_gallery?.length > 0 ? project.image_gallery : [project.image_cover];
-
   const dummyPhotos = [
     { src: '/projectProfile/safeena.png', alt: 'Safeena Project' },
     { src: '/projectProfile/himasela.png', alt: 'Himasela Project' },
@@ -37,7 +36,7 @@ export default async function PpkOrmawaPage() {
 
   return (
     <main className="min-h-screen bg-[#120F17] text-white">
-      <section className="relative w-full h-screen pt-2">
+      <section className="relative w-full h-screen py-2">
         <div className="relative w-full h-[90vh] overflow-hidden">
           <DomeGallery
             images={dummyPhotos}
