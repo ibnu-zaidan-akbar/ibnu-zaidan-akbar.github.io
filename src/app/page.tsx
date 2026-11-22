@@ -100,7 +100,7 @@ export default async function Home() {
               <Image
                 width={item.width} height={item.height}
                 src={item.src} alt="icon" className={"" + item.size}
-                />
+              />
             </a>
           ))}
         </div>
