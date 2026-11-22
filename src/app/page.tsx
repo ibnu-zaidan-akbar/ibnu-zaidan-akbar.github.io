@@ -1,14 +1,25 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
+import { supabase, Projects, Experiences } from "@/src/lib/supabase";
 import InteractiveBadge from "@/src/components/InteractiveBadge"
 import GlowCursor from "@/src/components/cursor/CursorWrapper"
 import PanoramaSlider from '../components/PanoramaSlider';
 import Timeline from '../components/Timeline'
 
-export default function Home() {
-  const [isExpanded, setIsExpanded] = useState(false);
+export default async function Home() {
+  const [projectsRes, experiencesRes] = await Promise.all([
+    supabase.from('projects').select('*').order('created_at').eq('showcase', true),
+    supabase.from('experiences').select('*').order('created_at'),
+  ])
+  if (projectsRes.error) {
+    console.error('Error fetching projects:', projectsRes.error);
+  }
+  if (experiencesRes.error) {
+    console.error('Error fetching experiences:', experiencesRes.error);
+  }
+
+  const projects = (projectsRes.data as Projects[]) || [];
+  const experiences = (experiencesRes.data as Experiences[]) || [];
+
   const skill = [
     { id: 1, src:"/logo/nextjs.svg", xlWidth: 103, xlHeight:  84, size: "xl:w-[103px] xl:h-[84px] lg:w-[83px] w-[64px] h-[52px]"},
     { id: 2,src: "/logo/tailwind.svg", xlWidth: 100, xlHeight:  77, size: "xl:w-[100px] xl:h-[77px] lg:w-[80px] w-[60px] h-[44px]"},
@@ -18,20 +29,12 @@ export default function Home() {
     { id: 6, src: "/logo/java.svg", xlWidth: 77, xlHeight: 103, size: "xl:w-[77px] xl:h-[103px] w-[48px] h-[68px]"},
     { id: 7,src: "/logo/laravel.svg", xlWidth: 103, xlHeight:  83, size: "xl:w-[103px] xl:h-[83px] w-[80px] h-[56px]"}
   ];
-  const visibleSkills = skill.slice(0, 7);
-  const hiddenSkills = skill.slice(8);
 
   const icon = [
     { id: 1, src: "/icons/wa.svg", width: 60, height: 60, size: "w-[40px] h-[40px] lg:h-[50px] lg:w-[50px] xl:h-[60px] xl:w-[60px]", objective: "https://wa.me/6282325299550"},
     { id: 2, src: "/icons/ig.svg", width: 60, height: 60, size: "w-[40px] h-[40px] lg:h-[50px] lg:w-[50px] xl:h-[60px] xl:w-[60px]", objective: "https://www.instagram.com/ibnu_zaidanj"},
     { id: 3, src: "/icons/linkedin.svg", width: 60, height: 60, size: "w-[40px] h-[40px] lg:h-[50px] lg:w-[50px] xl:h-[60px] xl:w-[60px]", objective: "https://www.linkedin.com/in/ibnuzaidan"}
   ];
-
-  const project = [
-    { id: 1, foto: "/projectProfile/safeena.png", objective: "/safeena", title: "Company Profile Website", position: "frontend developer"},
-    { id: 2, foto: "/projectProfile/nexus.png", objective: "/nexus", title: "Nexus Financial App", position: "fullstack developer"},
-    { id: 3, foto: "/projectProfile/himasela.png", objective: "/himasela", title: "Organization Website HIMASELA", position: "fullstack developer"},
-  ]
 
   return (
     <main className="bg-dark">
@@ -69,31 +72,13 @@ export default function Home() {
             <div className="flex flex-col gap-2">
               <span className="text-[24px] md:text-[30px] lg:text-[28px] xl:text-[42px] font-semibold">Skills</span>
               <div className="flex flex-wrap gap-y-4 gap-x-8 w-full justify-center lg:justify-start">
-                {visibleSkills.map((item) => (
+                {skill.map((item) => (
                   <Image
                     key={item.id} src={item.src}
                     width={item.xlWidth} height={item.xlHeight}
                     alt="logo" className={"hover:grayscale-0 transition-all " + item.size}
                   />
                 ))}
-
-                {isExpanded && hiddenSkills.map((item) => (
-                  <Image
-                    key={item.id} src={item.src}
-                    width={item.xlWidth} height={item.xlHeight}
-                    alt="logo" className={"hover:grayscale-0 transition-all " + item.size}
-                  />
-                ))}
-
-                {!isExpanded && (
-                  <button onClick={() => setIsExpanded(true)} className="flex flex-col justify-center items-center gap-2 text-white hover:text-blue-400 transition-colors group">
-                    <Image
-                      src="/icons/expand.svg" alt="expand"
-                      width={40} height={40} className="group-hover:translate-x-1 transition-transform"
-                      />
-                      <span>Expand</span>
-                  </button>
-                )}
               </div>
             </div>
           </div>
@@ -103,7 +88,7 @@ export default function Home() {
         </section>
       </GlowCursor>
 
-      <Timeline/>
+      <Timeline itemTimeline={experiences}/>
       
       <PanoramaSlider/>
 

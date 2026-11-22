@@ -25,3 +25,15 @@ export type Projects = {
   live_url: string | null;
   showcase: boolean | null;
 };
+
+export type Experiences = {
+  id: string;
+  created_at: string;
+  company: string;
+  role: string;
+  type: string;
+  description: string | null;
+  start_date: string;
+  end_date: string | null;
+  year: string;
+};

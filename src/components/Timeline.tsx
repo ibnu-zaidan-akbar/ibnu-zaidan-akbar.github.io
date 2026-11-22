@@ -2,41 +2,46 @@
 
 import React, { useRef, useState } from 'react';
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion';
+import { Experiences } from '../lib/supabase';
 
-const timelineData = [
-  {
-    id: '01', year: '2024', period: 'AUG 2024 - PRESENT', employment: "Education",
-    role: 'Informatics Engineering Student', company: 'Universitas Padjadjaran',
-    description: 'Pursuing a Bachelor of Science. Transitioned focus toward AI Engineering and intelligent software architecture. Acted as Vice Project Officer for IFest.',
-  },
-  {
-    id: '02', year: '2026', period: 'JAN 2026 - PRESENT', employment: "Scholarship",
-    role: 'Bakti Champion', company: 'Bakti BCA Scholarship',
-    description: 'Awarded the Bakti BCA Scholarship and built an international e-commerce platform for traditional Sundanese Wayang Golek artisans with Next.js and Xendit.',
-  },
-  {
-    id: '03', year: '2026', period: 'APRIL 2026', employment: "Competition",
-    role: 'AI Engineer & Full-Stack Dev', company: 'Menusa',
-    description: 'Developed Menusa, a smart travel planner with React Native and ML recommendation engines.',
-  },
-  {
-    id: '04', year: '2026', period: 'MAY 2026 - JUNE 2026', employment: "Competition",
-    role: 'AI Engineer & Full-Stack Dev', company: 'SepsisGuard',
-    description: 'Built SepsisGuard, a clinical AI decision support app using XGBoost.',
-  },
-  {
-    id: '05', year: '2026', period: 'MAR 2026 - OCT 2026', employment: "Competition",
-    role: 'IoT & Web Developer', company: 'PPK ORMAWA (Jagaren)',
-    description: 'Led a disaster mitigation initiative. Developed Jagaren, combining ESP32 and LoRa multi-sensor telemetry with a Progressive Web App dashboard.',
-  },
-  // {
-  //   id: '06', year: '2027', period: 'FEB 2027 - FEB 2028', employment: "Internship",
-  //   role: 'Application Developer Intern', company: 'PT Freeport Indonesia',
-  //   description: 'Developing and maintaining enterprise-scale applications. Integrating backend architectures to support large-scale industrial operations and data telemetry pipelines.',
-  // },
-];
+// const itemTimeline = [
+//   {
+//     id: '01', year: '2024', period: 'AUG 2024 - PRESENT', employment: "Education",
+//     role: 'Informatics Engineering Student', company: 'Universitas Padjadjaran',
+//     description: 'Pursuing a Bachelor of Science. Transitioned focus toward AI Engineering and intelligent software architecture. Acted as Vice Project Officer for IFest.',
+//   },
+//   {
+//     id: '02', year: '2026', period: 'JAN 2026 - PRESENT', employment: "Scholarship",
+//     role: 'Bakti Champion', company: 'Bakti BCA Scholarship',
+//     description: 'Awarded the Bakti BCA Scholarship and built an international e-commerce platform for traditional Sundanese Wayang Golek artisans with Next.js and Xendit.',
+//   },
+//   {
+//     id: '03', year: '2026', period: 'APRIL 2026', employment: "Competition",
+//     role: 'AI Engineer & Full-Stack Dev', company: 'Menusa',
+//     description: 'Developed Menusa, a smart travel planner with React Native and ML recommendation engines.',
+//   },
+//   {
+//     id: '04', year: '2026', period: 'MAY 2026 - JUNE 2026', employment: "Competition",
+//     role: 'AI Engineer & Full-Stack Dev', company: 'SepsisGuard',
+//     description: 'Built SepsisGuard, a clinical AI decision support app using XGBoost.',
+//   },
+//   {
+//     id: '05', year: '2026', period: 'MAR 2026 - OCT 2026', employment: "Competition",
+//     role: 'IoT & Web Developer', company: 'PPK ORMAWA (Jagaren)',
+//     description: 'Led a disaster mitigation initiative. Developed Jagaren, combining ESP32 and LoRa multi-sensor telemetry with a Progressive Web App dashboard.',
+//   },
+//   // {
+//   //   id: '06', year: '2027', period: 'FEB 2027 - FEB 2028', employment: "Internship",
+//   //   role: 'Application Developer Intern', company: 'PT Freeport Indonesia',
+//   //   description: 'Developing and maintaining enterprise-scale applications. Integrating backend architectures to support large-scale industrial operations and data telemetry pipelines.',
+//   // },
+// ];
 
-export default function PinnedTimeline() {
+type Timeline = {
+  itemTimeline: Experiences[];
+}
+
+export default function PinnedTimeline({itemTimeline}: Timeline) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const { scrollYProgress } = useScroll({
@@ -44,16 +49,21 @@ export default function PinnedTimeline() {
     offset: ["start start", "end end"]
   });
 
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    const totalItems = timelineData.length;
+  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
+    if (!itemTimeline?.length) return;
+    const totalItems = itemTimeline.length;
     let index = Math.floor(latest * totalItems);
-    if (index >= totalItems) index = totalItems - 1; 
+    if (index >= totalItems) index = totalItems - 1;
     if (index !== activeIndex) {
       setActiveIndex(index);
     }
   });
 
-  const activeItem = timelineData[activeIndex];
+  if (!itemTimeline || itemTimeline.length === 0) {
+    return null;
+  }
+
+  const activeItem = itemTimeline[activeIndex] ?? itemTimeline[0];
 
   return (
     <section ref={containerRef} className="relative h-[500vh] bg-transparent text-white">
@@ -79,14 +89,14 @@ export default function PinnedTimeline() {
             <div className="flex items-center gap-4 text-sm font-mono text-gray-400">
               <span>{String(activeIndex + 1).padStart(2, '0')}</span>
               <div className="h-[2px] w-24 bg-gray-800 relative rounded-full overflow-hidden">
-                <motion.div  className="absolute top-0 left-0 h-full bg-blue-500" initial={{ width: 0 }} animate={{ width: `${((activeIndex + 1) / timelineData.length) * 100}%` }} transition={{ duration: 0.3 }}/>
+                <motion.div  className="absolute top-0 left-0 h-full bg-blue-500" initial={{ width: 0 }} animate={{ width: `${((activeIndex + 1) / itemTimeline.length) * 100}%` }} transition={{ duration: 0.3 }}/>
               </div>
-              <span>{String(timelineData.length).padStart(2, '0')}</span>
+              <span>{String(itemTimeline.length).padStart(2, '0')}</span>
             </div>
           </div>
 
           <div className="relative h-[300px] md:h-[400px] w-full flex items-center">
-            {timelineData.map((item, index) => (
+            {itemTimeline.map((item, index) => (
               <div key={item.id}
                 className={`absolute top-1/2 -translate-y-1/2 left-0 w-full transition-all duration-700 ease-in-out border-l-2 pl-8 ${
                   activeIndex === index 
@@ -98,8 +108,8 @@ export default function PinnedTimeline() {
                   activeIndex === index ? 'bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.6)] scale-100' : 'bg-gray-800 scale-0'
                 }`} />
 
-                <p className="text-gray-400 text-sm font-mono tracking-widest mb-1">{item.period}</p>
-                <p className="text-white text-sm font-mono tracking-widest mb-4">{item.employment}</p>
+                <p className="text-gray-400 text-sm font-mono tracking-widest mb-1">{item.start_date} - {item.end_date || 'PRESENT'}</p>
+                <p className="text-white text-sm font-mono tracking-widest mb-4">{item.type}</p>
                 <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">{item.role}</h3>
                 <p className="text-blue-400 text-lg font-medium mb-4">{item.company}</p>
                 <p className="text-gray-400 text-base md:text-lg leading-relaxed line-clamp-5">{item.description}</p>
