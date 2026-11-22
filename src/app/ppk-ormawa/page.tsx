@@ -1,6 +1,6 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
-import { supabase, Project } from '@/src/lib/supabase';
+import { supabase, Projects } from '@/src/lib/supabase';
 import DomeGallery from '@/src/components/Gallery';
 
 function formatDate(dateString: string | null) {
@@ -19,27 +19,17 @@ export default async function PpkOrmawaPage() {
     notFound();
   }
 
-  const project = data as Project;
+  const project = data as Projects;
   const galleryImages = project.image_gallery?.length > 0 ? project.image_gallery : [project.image_cover];
-  const dummyPhotos = [
-    { src: '/projectProfile/safeena.png', alt: 'Safeena Project' },
-    { src: '/projectProfile/himasela.png', alt: 'Himasela Project' },
-    { src: '/projectProfile/nexus.png', alt: 'Nexus Finance' },
-    { src: '/projectProfile/safeena.png', alt: 'Safeena Project' },
-    { src: '/projectProfile/himasela.png', alt: 'Himasela Project' },
-    { src: '/projectProfile/nexus.png', alt: 'Nexus Finance' },
-    { src: '/projectProfile/safeena.png', alt: 'Safeena Project' },
-    { src: '/projectProfile/nexus.png', alt: 'Nexus Finance' },
-    { src: '/projectProfile/safeena.png', alt: 'Safeena Project' },
-    { src: '/projectProfile/himasela.png', alt: 'Himasela Project' },
-  ];
-
+  
   return (
     <main className="min-h-screen bg-[#120F17] text-white">
       <section className="relative w-full h-screen py-2">
         <div className="relative w-full h-[90vh] overflow-hidden">
           <DomeGallery
-            images={dummyPhotos}
+            images={galleryImages}
+            openedImageWidth="min(85vw, 700px)"
+            openedImageHeight="min(70vw, 500px)"
             fit={0.8}
             minRadius={600}
             maxVerticalRotationDeg={10}
@@ -49,7 +39,7 @@ export default async function PpkOrmawaPage() {
             overlayBlurColor="#120F17"
             />
           </div>
-          <div className="relative w-full h-[10vh] flex items-start justify-around animate-bounce -space-y-8 md:-space-y-16 text-white">
+          <div className="relative w-full h-[10vh] flex items-start justify-around animate-bounce -space-y-8 md:-space-y-16 text-white select-none">
             <span className="text-[48px] md:text-[64px] font-light rotate-90">›</span>
             <span className="text-[48px] md:text-[64px] font-light rotate-90">›</span>
             <span className="text-[48px] md:text-[64px] font-light rotate-90">›</span>

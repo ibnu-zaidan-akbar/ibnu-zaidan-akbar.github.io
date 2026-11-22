@@ -87,6 +87,14 @@ const getDataNumber = (el: HTMLElement, name: string, fallback: number) => {
   return Number.isFinite(n) ? n : fallback;
 };
 
+const getOptimizedThumb = (url: string) => {
+  if (!url) return '';
+  if (url.includes('supabase.co')) {
+    return `/_next/image?url=${encodeURIComponent(url)}&w=384&q=75`;
+  }
+  return url;
+};
+
 function buildItems(pool: ImageItem[], seg: number): ItemDef[] {
   const xCols = Array.from({ length: seg }, (_, i) => -37 + i * 2);
   const evenYs = [-4, -2, 0, 2, 4];
@@ -884,14 +892,10 @@ export default function DomeGallery({
                     }}
                   >
                     <img
-                      src={it.src}
-                      draggable={false}
-                      alt={it.alt}
-                      className="w-full h-full object-cover pointer-events-none"
-                      style={{
-                        backfaceVisibility: 'hidden',
-                        filter: `var(--image-filter, ${grayscale ? 'grayscale(1)' : 'none'})`
-                      }}
+                      src={getOptimizedThumb(it.src)} draggable={false} alt={it.alt}
+                      loading="lazy" decoding="async" className="w-full h-full object-cover pointer-events-none"
+                      onError={(e) => { if (e.currentTarget.src !== it.src) { e.currentTarget.src = it.src; }}}
+                      style={{ backfaceVisibility: 'hidden', filter: `var(--image-filter, ${grayscale ? 'grayscale(1)' : 'none'})` }}
                     />
                   </div>
                 </div>

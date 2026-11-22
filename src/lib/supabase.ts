@@ -5,10 +5,11 @@ const supabasePublicKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!;
 
 export const supabase = createClient(supabaseUrl, supabasePublicKey);
 
-export type Project = {
+export type Projects = {
   id: string;
   created_at: string;
   title: string;
+  subtitle: string;
   name: string;
   category: string;
   position: string;
@@ -22,4 +23,5 @@ export type Project = {
   custom_link: string | null;
   github_url: string | null;
   live_url: string | null;
+  showcase: boolean | null;
 };
