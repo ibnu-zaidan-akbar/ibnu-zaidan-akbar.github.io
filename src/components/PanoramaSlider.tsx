@@ -3,17 +3,13 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, useMotionValue, useAnimationFrame, animate } from 'framer-motion';
+import { Projects } from '../lib/supabase';
 
-const project = [
-    { id: 1, foto: "/projectProfile/safeena.png", objective: "/safeena", title: "Company Profile Website", position: "frontend developer"},
-    { id: 2, foto: "/projectProfile/nexus.png", objective: "/nexus", title: "Nexus Financial App", position: "fullstack developer"},
-    { id: 3, foto: "/projectProfile/himasela.png", objective: "/himasela", title: "Organization Website HIMASELA", position: "fullstack developer"},
-];
+type Showcase = {
+  showcase: Projects[];
+}
 
-const items = [...project, ...project]; 
-const angle = 360 / items.length;
-
-export default function PanoramaSlider() {
+export default function PanoramaSlider({showcase}: Showcase) {
     const [isMobile, setIsMobile] = useState(false);
     useEffect(() => {
         const handleResize = () => {
@@ -27,6 +23,13 @@ export default function PanoramaSlider() {
 
     const dynamicPerspective = isMobile ? '700px' : '1200px'; 
     const dynamicRadius = isMobile ? 500 : 700;
+
+    if (!showcase || showcase.length === 0) {
+        return null;
+    }
+
+    const items = showcase.length < 6 ? [...showcase, ...showcase] : showcase;
+    const angle = items.length > 0 ? 360 / items.length : 0;
 
     const rotationY = useMotionValue(0);
     const [isHovered, setIsHovered] = useState(false);
@@ -71,7 +74,7 @@ export default function PanoramaSlider() {
                             className="absolute w-[60vh] h-[240px] md:h-[320px] lg:w-[720px] lg:h-[400px] rounded-lg lg:rounded-2xl overflow-hidden border border-white/10 pointer-events-auto cursor-grab active:cursor-grabbing select-none"
                             onHoverStart={() => setIsHovered(true)} onHoverEnd={() => setIsHovered(false)}
                         >
-                            <img src={item.foto} alt={item.title} className="object-cover w-full h-full pointer-events-none"/>
+                            <img src={item.image_cover} alt={item.title} className="object-cover w-full h-full pointer-events-none"/>
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent flex flex-col justify-end p-6 pointer-events-none">
                                 <p className="text-blue-400 text-sm font-semibold mb-1 tracking-wider">As a <span className="uppercase">{item.position}</span></p>
                                 <h3 className="text-2xl font-bold text-white leading-tight">{item.title}</h3>

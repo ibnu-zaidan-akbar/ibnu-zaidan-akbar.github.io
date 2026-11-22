@@ -90,7 +90,7 @@ export default async function Home() {
 
       <Timeline itemTimeline={experiences}/>
       
-      <PanoramaSlider/>
+      <PanoramaSlider showcase={projects}/>
 
       <section className="flex flex-col pb-8 pt-6 lg:pb-12 gap-2 lg:gap-4">
         <span className="text-[24px] md:text-[24px] lg:text-[28px] xl:text-[36px] font-semibold text-white text-center">Contacts</span>

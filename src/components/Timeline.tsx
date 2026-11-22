@@ -4,39 +4,6 @@ import React, { useRef, useState } from 'react';
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion';
 import { Experiences } from '../lib/supabase';
 
-// const itemTimeline = [
-//   {
-//     id: '01', year: '2024', period: 'AUG 2024 - PRESENT', employment: "Education",
-//     role: 'Informatics Engineering Student', company: 'Universitas Padjadjaran',
-//     description: 'Pursuing a Bachelor of Science. Transitioned focus toward AI Engineering and intelligent software architecture. Acted as Vice Project Officer for IFest.',
-//   },
-//   {
-//     id: '02', year: '2026', period: 'JAN 2026 - PRESENT', employment: "Scholarship",
-//     role: 'Bakti Champion', company: 'Bakti BCA Scholarship',
-//     description: 'Awarded the Bakti BCA Scholarship and built an international e-commerce platform for traditional Sundanese Wayang Golek artisans with Next.js and Xendit.',
-//   },
-//   {
-//     id: '03', year: '2026', period: 'APRIL 2026', employment: "Competition",
-//     role: 'AI Engineer & Full-Stack Dev', company: 'Menusa',
-//     description: 'Developed Menusa, a smart travel planner with React Native and ML recommendation engines.',
-//   },
-//   {
-//     id: '04', year: '2026', period: 'MAY 2026 - JUNE 2026', employment: "Competition",
-//     role: 'AI Engineer & Full-Stack Dev', company: 'SepsisGuard',
-//     description: 'Built SepsisGuard, a clinical AI decision support app using XGBoost.',
-//   },
-//   {
-//     id: '05', year: '2026', period: 'MAR 2026 - OCT 2026', employment: "Competition",
-//     role: 'IoT & Web Developer', company: 'PPK ORMAWA (Jagaren)',
-//     description: 'Led a disaster mitigation initiative. Developed Jagaren, combining ESP32 and LoRa multi-sensor telemetry with a Progressive Web App dashboard.',
-//   },
-//   // {
-//   //   id: '06', year: '2027', period: 'FEB 2027 - FEB 2028', employment: "Internship",
-//   //   role: 'Application Developer Intern', company: 'PT Freeport Indonesia',
-//   //   description: 'Developing and maintaining enterprise-scale applications. Integrating backend architectures to support large-scale industrial operations and data telemetry pipelines.',
-//   // },
-// ];
-
 type Timeline = {
   itemTimeline: Experiences[];
 }
